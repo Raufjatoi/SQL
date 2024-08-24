@@ -1,2 +1,2 @@
 # SQL
- SQL ( Structured Query Language ) stuffs 
+ SQL ( Structured Query Language ) probelms sets of all weeks 
