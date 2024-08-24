@@ -1,2 +1,2 @@
 # SQL
- SQL ( Structured Query Language ) stuffs 
+ CS50SQL probelms sets of all weeks 
