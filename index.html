@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rauf: AI and ML</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: white; 
+      color: black;
+    }
+    .main-heading {
+      color: blue; 
+    }
+    .navbar {
+      background-color: rgb(199, 193, 193); 
+    }
+    .navbar-brand {
+      font-weight: bold;
+      color: blue; 
+    }
+    .navbar-nav .nav-link {
+      color: blue; 
+    }
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    footer {
+      background-color: white; 
+      color: black;
+      padding: 15px 0;
+    }
+    pre {
+      background-color: white;
+      color: blue;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="https://rauf-psi.vercel.app/">Rauf</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="tutorialDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Notes
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="tutorialDropdown">
+              <li><a class="dropdown-item" href="#">Quering</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- header -->
+  <header class="container text-center my-4">
+    <h1 class="main-heading">Rauf</h1>
+    <h5>AI and ML</h5>
+    <h2 class="main-heading">Querying in a Database</h2>
+    <p>Querying databases efficiently can help in extracting useful data for training models and performing various operations. This page demonstrates how to work with databases using Python.</p>
+  </header>
+
+  <!-- content -->
+  <div class="container content">
+    <section id="tutorial1" class="mb-5">
+      <h2 class="main-heading">Key Concepts in Database Queries</h2>
+      <ul>
+        <li><strong>SQL Queries:</strong> Structured Query Language (SQL) is used to interact with databases.</li>
+        <li><strong>CRUD Operations:</strong> Create, Read, Update, Delete operations are fundamental for manipulating data in a database.</li>
+        <li><strong>Connecting to Databases:</strong> Python can be used to connect to databases using libraries like `sqlite3`, `mysql-connector`, or `psycopg2` for different types of databases.</li>
+      </ul>
+    </section>
+
+    <section id="tutorial2" class="mb-5">
+      <h2 class="main-heading">Connecting to a Database with Python</h2>
+      <p>To interact with databases in Python, we can use the `sqlite3` library for SQLite databases. Here’s an example of how to create a connection and execute a query:</p>
+      <pre><code>import sqlite3
+
+# Connect to a SQLite database (it will create the database if it doesn't exist)
+conn = sqlite3.connect('example.db')
+cursor = conn.cursor()
+
+# Create a table
+cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+                    id INTEGER PRIMARY KEY, 
+                    name TEXT, 
+                    age INTEGER)''')
+
+# Insert data
+cursor.execute('''INSERT INTO users (name, age) 
+                  VALUES ('Alice', 30), ('Bob', 25), ('Charlie', 35)''')
+
+# Commit changes
+conn.commit()
+
+# Query data
+cursor.execute('SELECT * FROM users')
+
+# Fetch all rows
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+# Close the connection
+conn.close()</code></pre>
+    </section>
+
+    <section id="tutorial3" class="mb-5">
+      <h2 class="main-heading">Performing SQL Queries</h2>
+      <h4>Basic SQL Query:</h4>
+      <p>Here’s how to query the database and retrieve data based on certain conditions. For example, fetching all users older than 30:</p>
+      <pre><code># Query users older than 30
+cursor.execute('SELECT * FROM users WHERE age > 30')
+result = cursor.fetchall()
+for user in result:
+    print(user)</code></pre>
+
+      <h4>Updating Records:</h4>
+      <p>To update data in the database, use the following query:</p>
+      <pre><code>cursor.execute('UPDATE users SET age = 40 WHERE name = "Alice"')
+conn.commit()</code></pre>
+
+      <h4>Deleting Records:</h4>
+      <p>To delete a record, use:</p>
+      <pre><code>cursor.execute('DELETE FROM users WHERE name = "Bob"')
+conn.commit()</code></pre>
+    </section>
+
+    <section id="tutorial4" class="mb-5">
+      <h2 class="main-heading">Understanding SQL Joins</h2>
+      <p>SQL joins allow you to combine rows from two or more tables based on a related column. Here’s how to perform an inner join:</p>
+      <pre><code>cursor.execute('''SELECT users.name, orders.amount FROM users 
+                      INNER JOIN orders ON users.id = orders.user_id''')
+result = cursor.fetchall()
+for row in result:
+    print(row)</code></pre>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <p>21 Dec 2024 Rauf AI and ML</p>
+  </footer>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

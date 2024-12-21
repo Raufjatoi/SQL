@@ -3,4 +3,4 @@ FROM episodes
 WHERE season = 1 
 OR season = 2 
 OR season = 3 
-LIMIT = 20;
+LIMIT 20;
