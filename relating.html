@@ -81,20 +81,6 @@
     <section id="tutorial1" class="mb-5">
       <h2 class="main-heading">Keys in Databases</h2>
       <p>Keys are fundamental in database relationships. Primary keys uniquely identify records, while foreign keys link tables together.</p>
-      <h4>Primary Key Example:</h4>
-      <pre><code>CREATE TABLE users (
-    id INTEGER PRIMARY KEY,
-    name TEXT,
-    age INTEGER
-);</code></pre>
-      <h4>Foreign Key Example:</h4>
-      <pre><code>CREATE TABLE orders (
-    order_id INTEGER PRIMARY KEY,
-    user_id INTEGER,
-    amount DECIMAL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);</code></pre>
-    </section>
 
     <section id="tutorial2" class="mb-5">
       <h2 class="main-heading">Primary Keys</h2>
@@ -105,6 +91,8 @@
     author TEXT
 );</code></pre>
     </section>
+
+    
 
     <section id="tutorial3" class="mb-5">
       <h2 class="main-heading">Foreign Keys</h2>
