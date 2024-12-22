@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rauf: AI and ML</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: white; 
+      color: black;
+    }
+    .main-heading {
+      color: blue; 
+    }
+    .navbar {
+      background-color: rgb(199, 193, 193); 
+    }
+    .navbar-brand {
+      font-weight: bold;
+      color: blue; 
+    }
+    .navbar-nav .nav-link {
+      color: blue; 
+    }
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    footer {
+      background-color: white; 
+      color: black;
+      padding: 15px 0;
+    }
+    pre {
+      background-color: white;
+      color: blue;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="https://rauf-psi.vercel.app/">Rauf</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="tutorialDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Notes
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="tutorialDropdown">
+              <li><a class="dropdown-item" href="#">Keys</a></li>
+              <li><a class="dropdown-item" href="#">Primary Keys</a></li>
+              <li><a class="dropdown-item" href="#">Foreign Keys</a></li>
+              <li><a class="dropdown-item" href="#">Subqueries</a></li>
+              <li><a class="dropdown-item" href="#">IN</a></li>
+              <li><a class="dropdown-item" href="#">JOIN</a></li>
+              <li><a class="dropdown-item" href="#">Sets</a></li>
+              <li><a class="dropdown-item" href="#">Groups</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- header -->
+  <header class="container text-center my-4">
+    <h1 class="main-heading">Rauf</h1>
+    <h5>AI and ML</h5>
+    <h2 class="main-heading">Relating Tables in Databases</h2>
+    <p>Relating tables in databases is crucial for efficient data retrieval. Learn how to connect and relate data using SQL with examples below.</p>
+  </header>
+
+  <!-- content -->
+  <div class="container content">
+    <section id="tutorial1" class="mb-5">
+      <h2 class="main-heading">Keys in Databases</h2>
+      <p>Keys are fundamental in database relationships. Primary keys uniquely identify records, while foreign keys link tables together.</p>
+      <h4>Primary Key Example:</h4>
+      <pre><code>CREATE TABLE users (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    age INTEGER
+);</code></pre>
+      <h4>Foreign Key Example:</h4>
+      <pre><code>CREATE TABLE orders (
+    order_id INTEGER PRIMARY KEY,
+    user_id INTEGER,
+    amount DECIMAL,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);</code></pre>
+    </section>
+
+    <section id="tutorial2" class="mb-5">
+      <h2 class="main-heading">Primary Keys</h2>
+      <p>A primary key is a unique identifier for a record in a table. It must be unique for each record and cannot be NULL.</p>
+      <pre><code>CREATE TABLE books (
+    book_id INTEGER PRIMARY KEY,
+    title TEXT,
+    author TEXT
+);</code></pre>
+    </section>
+
+    <section id="tutorial3" class="mb-5">
+      <h2 class="main-heading">Foreign Keys</h2>
+      <p>A foreign key is a reference to a primary key in another table, establishing a relationship between two tables.</p>
+      <pre><code>CREATE TABLE reviews (
+    review_id INTEGER PRIMARY KEY,
+    book_id INTEGER,
+    review TEXT,
+    FOREIGN KEY (book_id) REFERENCES books(book_id)
+);</code></pre>
+    </section>
+
+    <section id="tutorial4" class="mb-5">
+      <h2 class="main-heading">Subqueries</h2>
+      <p>Subqueries are queries within queries. They allow you to fetch data based on another query’s result.</p>
+      <pre><code>SELECT name FROM books WHERE book_id = (
+    SELECT book_id FROM reviews WHERE review = 'Great Book'
+);</code></pre>
+    </section>
+
+    <section id="tutorial5" class="mb-5">
+      <h2 class="main-heading">Using IN</h2>
+      <p>The IN operator allows you to check if a value is in a list of values.</p>
+      <pre><code>SELECT name FROM books WHERE book_id IN (
+    SELECT book_id FROM reviews WHERE review = 'Excellent'
+);</code></pre>
+    </section>
+
+    <section id="tutorial6" class="mb-5">
+      <h2 class="main-heading">JOINs</h2>
+      <p>JOINs allow you to combine rows from two or more tables based on a related column.</p>
+      <pre><code>SELECT books.title, authors.name FROM books
+JOIN authors ON books.author_id = authors.id;</code></pre>
+    </section>
+
+    <section id="tutorial7" class="mb-5">
+      <h2 class="main-heading">Using Sets</h2>
+      <p>SQL set operations like UNION, INTERSECT, and EXCEPT help combine or compare result sets.</p>
+      <pre><code>SELECT title FROM books
+UNION
+SELECT title FROM articles;</code></pre>
+    </section>
+
+    <section id="tutorial8" class="mb-5">
+      <h2 class="main-heading">Grouping Results</h2>
+      <p>The GROUP BY clause allows you to group rows that share common values and perform aggregate functions on them.</p>
+      <pre><code>SELECT author, COUNT(book_id) FROM books
+GROUP BY author;</code></pre>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <p>21 Dec 2024 Rauf AI and ML</p>
+  </footer>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
