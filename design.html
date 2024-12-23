@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rauf: AI and ML</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #comment{
+        color: lightgreen;
+    }
+    body {
+      background-color: white; 
+      color: black;
+    }
+    .main-heading {
+      color: blue; 
+    }
+    .navbar {
+      background-color: rgb(199, 193, 193); 
+    }
+    .navbar-brand {
+      font-weight: bold;
+      color: blue; 
+    }
+    .navbar-nav .nav-link {
+      color: blue; 
+    }
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    footer {
+      background-color: white; 
+      color: black;
+      padding: 15px 0;
+    }
+    pre {
+      background-color: white;
+      color: blue;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="https://rauf-psi.vercel.app/">Rauf</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="tutorialDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Notes
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="tutorialDropdown">
+              <li><a class="dropdown-item" href="index.html">Quering</a></li>
+              <li><a class="dropdown-item" href="relating.html">Relating</a></li>
+              <li><a class="dropdown-item" href="#">Designing</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- header -->
+  <header class="container text-center my-4">
+    <h1 class="main-heading">Rauf</h1>
+    <h5>AI and ML</h5>
+    <h2 class="main-heading">Designing a Database</h2>
+  </header>
+
+  <!-- content -->
+  <div class="container content">
+    <section id="schemas" class="mb-5">
+      <h2 class="main-heading">Schemas</h2>
+      <p>A schema is the structure of a database, defining tables, columns, relationships, and other elements. It organizes data logically.</p>
+      <pre><code>CREATE SCHEMA Company;
+CREATE TABLE Company.Employees (
+  EmployeeID INT PRIMARY KEY,
+  Name VARCHAR(100) NOT NULL,
+  DepartmentID INT,
+  FOREIGN KEY (DepartmentID) REFERENCES Company.Departments(DepartmentID)
+);
+</code></pre>
+    </section>
+
+    <section id="normalization" class="mb-5">
+      <h2 class="main-heading">Normalization</h2>
+      <p>Normalization is the process of organizing data to reduce redundancy and improve integrity. It involves splitting data into related tables.</p>
+      <pre><code> <p id="comment"> -- Example of splitting data into two tables for normalization </p>
+CREATE TABLE Customers (
+  CustomerID INT PRIMARY KEY,
+  Name VARCHAR(100),
+  Email VARCHAR(100)
+);
+
+CREATE TABLE Orders (
+  OrderID INT PRIMARY KEY,
+  CustomerID INT,
+  OrderDate DATE,
+  FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+</code></pre>
+    </section>
+
+    <section id="datatypes" class="mb-5">
+      <h2 class="main-heading">Data Types</h2>
+      <p>Data types define the kind of data that can be stored in a column. Common types include INT, VARCHAR, DATE, and BOOLEAN.</p>
+      <pre><code>CREATE TABLE Products (
+  ProductID INT PRIMARY KEY,
+  Name VARCHAR(255) NOT NULL,
+  Price DECIMAL(10, 2),
+  Available BOOLEAN DEFAULT TRUE
+);
+</code></pre>
+    </section>
+
+    <section id="constraints" class="mb-5">
+      <h2 class="main-heading">Table Constraints</h2>
+      <p>Constraints ensure data integrity. Examples include PRIMARY KEY, FOREIGN KEY, CHECK, DEFAULT, NOT NULL, and UNIQUE.</p>
+      <pre><code>CREATE TABLE Students (
+  StudentID INT PRIMARY KEY,
+  Name VARCHAR(100) NOT NULL,
+  Age INT CHECK (Age >= 18),
+  Email VARCHAR(100) UNIQUE
+);
+</code></pre>
+    </section>
+
+    <section id="altering" class="mb-5">
+      <h2 class="main-heading">Altering Tables</h2>
+      <p>Use SQL commands to modify the structure of an existing table, such as adding, renaming, or removing columns.</p>
+      <pre><code><p id="comment"> -- Add a new column </p>
+ALTER TABLE Employees ADD COLUMN PhoneNumber VARCHAR(15);
+
+<p id="comment"> -- Rename a column </p>
+ALTER TABLE Employees RENAME COLUMN PhoneNumber TO ContactNumber;
+
+<p id="comment"> -- Drop a column </p>
+ALTER TABLE Employees DROP COLUMN ContactNumber;
+</code></pre>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <p>23 Dec 2024 Rauf AI and ML</p>
+  </footer>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
