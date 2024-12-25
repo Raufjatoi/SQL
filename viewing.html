@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rauf: AI and ML</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #comment {
+      color: lightgreen;
+    }
+    body {
+      background-color: white;
+      color: black;
+    }
+    .main-heading {
+      color: blue;
+    }
+    .navbar {
+      background-color: rgb(199, 193, 193);
+    }
+    .navbar-brand {
+      font-weight: bold;
+      color: blue;
+    }
+    .navbar-nav .nav-link {
+      color: blue;
+    }
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    footer {
+      background-color: white;
+      color: black;
+      padding: 15px 0;
+    }
+    pre {
+      background-color: white;
+      color: blue;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="https://rauf-psi.vercel.app/">Rauf</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="tutorialDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Notes
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="tutorialDropdown">
+              <li><a class="dropdown-item" href="index.html">Querying</a></li>
+              <li><a class="dropdown-item" href="relating.html">Relating</a></li>
+              <li><a class="dropdown-item" href="design.html">Designing</a></li>
+              <li><a class="dropdown-item" href="writing.html">Writing</a></li>
+              <li><a class="dropdown-item" href="#">Viewing</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <header class="container text-center my-4">
+    <h1 class="main-heading">Rauf</h1>
+    <h5>AI and ML</h5>
+    <h2 class="main-heading">Viewing in a Database</h2>
+    <p>Viewing in a database means creating a specific view for data analysis or operational purposes. For example, if you're a data analyst in a company, you can create a view for easier analysis. In this web note, I will talk about:
+      <ul>
+        <li>Views and how to create them (CREATE VIEW)</li>
+        <li>Temporary Views (CREATE TEMPORARY VIEW)</li>
+        <li>Common Table Expressions (CTEs)</li>
+        <li>Views for Partitioning</li>
+        <li>Views for Securing data</li>
+      </ul>
+      Let’s get started! 😊</p>
+  </header>
+  
+  <div class="container content">
+    <section id="tutorial1" class="mb-5">
+      <h2 class="main-heading">Create View</h2>
+      <p>For example, let's say we have two tables: <code>table_tennis_players</code> and <code>badminton_players</code>. Both tables include player ratings. We want to create a view that combines the top 10 players from both sports based on their ratings. Here's how:</p>
+      <pre><code>
+  <p id="comment">-- Creating a view for top 10 players across table tennis and badminton</p>
+  CREATE VIEW top_10_players AS
+  SELECT player_name, sport, rating
+  FROM (
+      SELECT player_name, 'Table Tennis' AS sport, rating
+      FROM table_tennis_players
+      UNION ALL
+      SELECT player_name, 'Badminton' AS sport, rating
+      FROM badminton_players
+  ) combined_players
+  ORDER BY rating DESC
+  LIMIT 10;
+  <p id="comment">-- The above query combines both tables and sorts players by rating.</p>
+      </code></pre>
+    </section>
+  
+    <section id="tutorial2" class="mb-5">
+      <h2 class="main-heading">Viewing the View</h2>
+      <p>Once a view is created, you can easily query it just like a table. For example, to see all the data in the view:</p>
+      <pre><code>
+  <p id="comment">-- Selecting all data from the view</p>
+  SELECT * FROM top_10_players;
+  <p id="comment">-- This retrieves the top 10 players as defined in the view.</p>
+      </code></pre>
+      <p>You can also perform aggregations or apply filters on the view:</p>
+      <pre><code>
+  <p id="comment">-- Counting the number of players in each sport</p>
+  SELECT sport, COUNT(*) AS player_count
+  FROM top_10_players
+  GROUP BY sport;
+  <p id="comment">-- This groups players by sport and counts them.</p>
+      </code></pre>
+    </section>
+  
+    <section id="tutorial3" class="mb-5">
+      <h2 class="main-heading">Temporary Views</h2>
+      <p>Temporary views are created for use within a session and are not stored permanently in the database. Here’s how to create one:</p>
+      <pre><code>
+  <p id="comment">-- Creating a temporary view</p>
+  CREATE TEMPORARY VIEW temp_top_players AS
+  SELECT player_name, rating
+  FROM table_tennis_players
+  WHERE rating > 90;
+  <p id="comment">-- This temporary view filters table tennis players with ratings above 90.</p>
+  
+  <p id="comment">-- Viewing the temporary view</p>
+  SELECT * FROM temp_top_players;
+  <p id="comment">-- Temporary views are session-specific and disappear once the session ends.</p>
+      </code></pre>
+    </section>
+  
+    <section id="tutorial4" class="mb-5">
+      <h2 class="main-heading">Common Table Expressions, Views for Partitioning, and Views for Securing</h2>
+  
+      <h3>Common Table Expressions (CTEs)</h3>
+      <p>CTEs are temporary result sets defined within a query. They simplify complex queries by breaking them into smaller parts:</p>
+      <pre><code>
+  <p id="comment">-- Using a CTE to find top players</p>
+  WITH top_table_tennis AS (
+      SELECT player_name, rating
+      FROM table_tennis_players
+      ORDER BY rating DESC
+      LIMIT 5
+  ),
+  
+       top_badminton AS (
+      SELECT player_name, rating
+      FROM badminton_players
+      ORDER BY rating DESC
+      LIMIT 5
+  )
+  SELECT * FROM top_table_tennis
+  UNION ALL
+  SELECT * FROM top_badminton;
+  <p id="comment">-- This combines top 5 players from each sport using a CTE.</p>
+      </code></pre>
+  
+      <h3>Views for Partitioning</h3>
+      <p>Views can be used to logically partition data. For example, partitioning players by region:</p>
+      <pre><code>
+  <p id="comment">-- Partitioning players by region</p>
+  CREATE VIEW regional_players AS
+  SELECT player_name, region, rating
+  FROM table_tennis_players
+  WHERE region = 'Asia';
+  <p id="comment">-- This view filters players from the Asian region.</p>
+      </code></pre>
+  
+      <h3>Views for Securing Data</h3>
+      <p>Views can limit the data visible to certain users, enhancing security. For example:</p>
+      <pre><code>
+  <p id="comment">-- Securing sensitive data</p>
+  CREATE VIEW public_player_info AS
+  SELECT player_name, rating
+  FROM table_tennis_players;
+  <p id="comment">-- This view excludes sensitive columns like contact details.</p>
+      </code></pre>
+    </section>
+  </div>
+  
+  <footer class="text-center">
+    <p>25 Dec 2024 Rauf AI and ML</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
