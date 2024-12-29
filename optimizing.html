@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rauf: AI and ML</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #comment {
+      color: lightgreen;
+    }
+    body {
+      background-color: white;
+      color: black;
+    }
+    .main-heading {
+      color: blue;
+    }
+    .navbar {
+      background-color: rgb(199, 193, 193);
+    }
+    .navbar-brand {
+      font-weight: bold;
+      color: blue;
+    }
+    .navbar-nav .nav-link {
+      color: blue;
+    }
+    .content img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px auto;
+    }
+    footer {
+      background-color: white;
+      color: black;
+      padding: 15px 0;
+    }
+    pre {
+      background-color: white;
+      color: blue;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="https://rauf-psi.vercel.app/">Rauf</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="tutorialDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Notes
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="tutorialDropdown">
+              <li><a class="dropdown-item" href="index.html">Querying</a></li>
+              <li><a class="dropdown-item" href="relating.html">Relating</a></li>
+              <li><a class="dropdown-item" href="design.html">Designing</a></li>
+              <li><a class="dropdown-item" href="#">Writing</a></li>
+              <li><a class="dropdown-item" href="viewing.html">Viewing</a></li>
+              <li><a class="dropdown-item" href="#">Optimizing</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="container text-center my-4">
+    <h1 class="main-heading">Rauf</h1>
+    <h5>AI and ML</h5>
+    <h2 class="main-heading">Optimizing in Database</h2>
+<p>Optimizing a database means making it faster to retrieve data or more efficient in terms of storage. There are trade-offs involved. In this web note, I will talk about topics such as Indexes, CREATE INDEX, EXPLAIN QUERY PLAN, B-Trees, Partial Indexes, VACUUM, and more.</p>
+</header>
+<div class="container content">
+  <section id="tutorial1" class="mb-5">
+    <h2 class="main-heading">Indexes</h2>
+    <p>Indexes are like a cricket scorecard index – it helps you find the players' scores quickly instead of searching through the entire match. In databases, it speeds up data retrieval.</p>
+    <pre><code>
+<!-- An index on a table helps find rows quickly, just like looking at a scorecard -->
+CREATE INDEX idx_player_name ON players (name);
+<p id="comment">This index helps to quickly search for players by name without scanning the whole table.</p>
+    </code></pre>
+  </section>
+
+  <section id="tutorial2" class="mb-5">
+    <h2 class="main-heading">CREATE INDEX</h2>
+    <p>CREATE INDEX is the SQL command to create an index. It's like creating an index in a cricket team's player list to search by player name, speed, or runs quickly.</p>
+    <pre><code>
+<!-- Example of creating an index on a player's name in a cricket database -->
+CREATE INDEX idx_runs ON players (runs);
+<p id="comment">This index speeds up queries that search for players based on their runs.</p>
+    </code></pre>
+  </section>
+
+  <section id="tutorial3" class="mb-5">
+    <h2 class="main-heading">EXPLAIN QUERY PLAN</h2>
+    <p>EXPLAIN QUERY PLAN shows how the database will execute a query. It's like a cricket coach explaining the plan for how to defeat the opponent's team.</p>
+    <pre><code>
+<!-- This command shows the execution plan of a query -->
+EXPLAIN QUERY PLAN SELECT * FROM players WHERE runs > 50;
+<p id="comment">This command tells you how the database will retrieve players with more than 50 runs.</p>
+<p id="comment">EXPLAIN helps optimize queries by showing the best path for retrieval.</p>
+    </code></pre>
+  </section>
+
+  <section id="tutorial4" class="mb-5">
+    <h2 class="main-heading">B-Trees</h2>
+    <p>B-Trees are used by databases to store indexes. Imagine a cricket team with players divided by categories like 'All-rounders', 'Batsmen', etc. A B-Tree keeps everything organized and fast to access.</p>
+    <pre><code>
+<!-- A basic example of B-Tree usage in databases -->
+SELECT * FROM players WHERE team = 'India';
+<p id="comment">A B-Tree would organize the player data by team and make it faster to find all Indian players.</p>
+<p id="comment">It's like a multi-level list that organizes data in a way that speeds up access.</p>
+</code></pre>
+  </section>
+
+  <section id="tutorial5" class="mb-5">
+    <h2 class="main-heading">Partial Indexes</h2>
+    <p>Partial Indexes only index part of the data. It’s like indexing only the top scorers in a cricket database, instead of every player.</p>
+    <pre><code>
+<!-- Example of creating a partial index on players who have scored more than 50 runs -->
+CREATE INDEX idx_top_scorers ON players (name) WHERE runs > 50;
+<p id="comment">This index only includes players who have scored more than 50 runs, making queries faster when searching for top scorers.</p>
+    </code></pre>
+  </section>
+
+  <section id="tutorial6" class="mb-5">
+    <h2 class="main-heading">VACUUM</h2>
+    <p>VACUUM helps clean up the database by removing unused data and reclaiming space, just like a cricket team cleaning the field after a match.</p>
+    <pre><code>
+<!-- VACUUM is used to clean up the database by reclaiming storage -->
+VACUUM;
+<p id="comment">Running VACUUM regularly helps keep the database optimized and saves storage space.</p>
+<p id="comment">It’s like tidying up your room after a big event to make things run smoothly again.</p>
+    </code></pre>
+  </section>
+
+  <section id="tutorial7" class="mb-5">
+    <h2 class="main-heading">Transactions</h2>
+    <p>Transactions ensure that a series of database actions are completed successfully, like completing all the steps of a cricket match. If anything fails, the whole thing is rolled back, just like replaying a match if something goes wrong.</p>
+    <pre><code>
+<!-- Example of using BEGIN TRANSACTION, COMMIT, and ROLLBACK -->
+BEGIN TRANSACTION;
+UPDATE players SET runs = 100 WHERE name = 'Sachin';
+COMMIT;
+<p id="comment">BEGIN starts the transaction, and COMMIT ensures that the change is saved. If something goes wrong, ROLLBACK will undo everything.</p>
+    </code></pre>
+  </section>
+
+  <section id="tutorial8" class="mb-5">
+    <h2 class="main-heading">ACID Properties</h2>
+    <p>ACID stands for Atomicity, Consistency, Isolation, and Durability. Think of it like ensuring that every cricket match follows the same rules (Consistency), and if something goes wrong, the game is reset (Atomicity).</p>
+    <pre><code>
+<!-- ACID properties ensure database integrity -->
+<p id="comment">Atomicity ensures all changes in a transaction happen together or not at all.</p>
+<p id="comment">Consistency ensures the database remains in a valid state after each transaction.</p>
+<p id="comment">Isolation ensures transactions are executed separately, even if they happen at the same time.</p>
+<p id="comment">Durability ensures changes are permanent after a transaction is committed.</p>
+    </code></pre>
+  </section>
+
+  <section id="tutorial9" class="mb-5">
+    <h2 class="main-heading">Locks</h2>
+    <p>Locks are like preventing a cricket player from being distracted during a crucial moment. In a database, locks prevent multiple operations from changing the same data at the same time, ensuring data integrity.</p>
+    <pre><code>
+<!-- Example of locking rows to avoid race conditions -->
+SELECT * FROM players WHERE name = 'Virat' FOR UPDATE;
+<p id="comment">The FOR UPDATE lock ensures no other transactions can modify Virat's data until this one is finished.</p>
+    </code></pre>
+  </section>
+</div>
+
+  <footer class="text-center">
+    <p>28 Dec 2024 Rauf AI and ML</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
